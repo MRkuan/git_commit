@@ -102,6 +102,7 @@ git config --global commit.template  /E/github/git_commit/template/git_template
 ```
 
 - 然后按照模板提交
+
 ![git_commit_template](image/git_commit_template.jpg)
 
 ## 3.参考
