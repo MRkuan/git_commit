@@ -39,9 +39,9 @@ gerrit使用参考平台 **Gerrit普通开发指导文档.doc**，不再叙述�
 
 type用于说明 commit 的类别，可以使用下面标识。
 
-Add：添加新文件
+add：添加新文件
 
-Update：更新某个文件
+update：更新某个文件
 
 feat：新功能（feature）
 
@@ -83,6 +83,26 @@ subject是 commit 目的的简短描述，不超过50个字符。
 可以敲入 **git log --oneline** 显示 summary 一行概述，可见按照规范的提交，log清晰明了
 
 ![gitlog_oneline](image/gitlog_oneline.jpg)
+
+#### 2.4 模板说明
+针对上面描述建立模板使用说明，位置在 template/git_template
+
+##### 2.4.1模板使用说明
+
+- 输入以下命令输入模板细信息
+
+``` 
+git config --global commit.template  模板地址
+```
+
+>eg:
+
+``` 
+git config --global commit.template  /E/github/git_commit/template/git_template
+```
+
+- 然后按照模板提交
+![git_commit_template](image/git_commit_template.jpg)
 
 ## 3.参考
 
