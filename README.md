@@ -1,109 +1,105 @@
-# git commit 规范文档
+# 版本管理工具提交规范
 
 ## 1.概述
 
-git-commit 规范下gerrit(git) 上面提交信息，顺便整理git信息整理，作为参考，欢迎fork本文档后pull request,来完善本文文档，以下演示提交都已**git bash**为基础
+版本工具提交规范是用来规范SVN或git(gerrit，gitlab等git工具)等版本管理工具提交信息，使commit简洁便于查找，commit 大致分为 Summary(概述) 和 Description（描述）和 note（备注），正文从以下这两方面进行阐述。
 
+commit提交格式如下图所示 先写 **Summary** 再紧接着 **<空一行>** 再写下 **Description** ,再紧接着 **<空一行>** 写下 **Note**
+
+Summary是必选的，Description和 Note是可选的，组成结构如下图所示
+``` commit
+Summary
+
+Description
+
+Note
+```
 ## 2.正文
 
-### 2.1 gerrit使用
-gerrit使用参考平台 **Gerrit普通开发指导文档.doc**，不再叙述，这边主要讲述下提交
+### 2.1 commit之Summary
 
-### 2.2 gerrit git 提交模板
+Summary在版本工具提交commit的时候，起到提交简明扼要的特点，这里主要叙述了commit比起上个版本功能上的变化，比如 我修改的一个文件，新增加几行代码，是为了满足了什么功能需求，估无需从修改或增加文件本身等一些细节性的出发写 Summary，Summary侧重满足功能需求上,格式分为 **[scope]+<空一格>+subject** ,scope是说明用来说明此次修改的影响范围,subject是具体的描述，Summary尽量控制在50个字符以类。
 
-#### 2.2.1 进入提交
+**scope 分为 下面3种**
+- all ：    表示影响面大 ，如修改了整体框架 会对整个程序产生影响
+- loation： 表示影响小，某个小小的功能
+- module：  表示会影响某个模块，比如音频，车身检测模块
 
-如果之前提交 都是 先 **git add -A** 后 再 **git commit -m "balabala"**,这样的提交方法 commit 的话只能提交一行信息，导致不能过多的描述信息，所以要改变**commit**命令，**git add -A** 后 再 **git commit**，进入vi编辑提交信息
+**使用场景描述**
 
-- 直接 敲入 **git commit** 进如 vi
+- 如果只是一个小小的更改,比如更改版本
 
-![goto_commit](image/goto_commit.jpg)
-
-- 在vi 模式下敲入提交信息，eg: vi 模式下 **i键** 进入**编辑**，按 **esc键**再输入 **:wq** 进行保存
-
-![commit_msg](image/commit_msg.jpg)
-
-#### 2.2.2 提交信息模板
-提交分为两部分 Summary 和 Description
-
-##### 2.2.2.1 Summary  概述
-
-概述主要用描述了大概做了什么事情，是Add 添加说明新文件，还是 Update 更新了某个文件.或者Fix 修复了某个bug或者冲突
-
-大致格式如下
-
+```Summary
+[loation] 修改了提交版本
 ```
-<type>(<scope>): <subject>// 空一行<body>// 空一行<footer>
+- 如果影响一个模块的化可以更改为:
+```Summary
+[CarSingalManage] 修改ACC检测时间，同步ACC问题
 ```
-**（1）type**
-
-type用于说明 commit 的类别，可以使用下面标识。
-
-add：添加新文件
-
-update：更新某个文件
-
-feat：新功能（feature）
-
-fix：修补bug
-
-docs：文档（documentation）
-
-style： 格式（不影响代码运行的变动）
-
-refactor：重构（即不是新增功能，也不是修改bug的代码变动）
-
-test：增加测试
-
-chore：构建过程或辅助工具的变动
-
-如果type为feat和fix，则该 commit 将肯定出现在 Change log 之中。其他情况（docs、chore、style、refactor、test）由你决定，要不要放入 Change log，建议是不要。
-
-**（2）scope**
-
-scope用于说明 commit 影响的范围，比如数据层、控制层、视图层等等，视项目不同而不同。
-
-**（3）subject**
-
-subject是 commit 目的的简短描述，不超过50个字符。
-
-以动词开头，使用第一人称现在时，比如change，而不是changed或changes
-
-第一个字母小写
-
-结尾不加句号（.）
-
-##### 2.2.2.2 Description 具体描述
-在 summy 基础上回车换行 继续写具体描述，可以 1.，2.，3.罗列出来
-
-![summary_and_description](image/summary_and_description.jpg)
-
-#### 2.3 其它说明
-
-可以敲入 **git log --oneline** 显示 summary 一行概述，可见按照规范的提交，log清晰明了
-
-![gitlog_oneline](image/gitlog_oneline.jpg)
-
-#### 2.4 模板说明
-针对上面描述建立模板使用说明，位置在 template/git_template
-
-##### 2.4.1模板使用说明
-
-- 输入以下命令输入模板细信息
-
-``` 
-git config --global commit.template  模板地址
+- 如果影响多个模块的化可以更改为:
+```Summary
+[CarSingalManage][MX51] 增加了文档描述代码示例，修改了之前提出的bug
+```
+- 如果影响太多模块,要在 Description 具体阐述:
+```Summary
+[all] 修改了时间片轮询框架改用操作系统
 ```
 
->eg:
+### 2.1 commit之Description
 
-``` 
-git config --global commit.template  /E/github/git_commit/template/git_template
+在写完了Summary概述后，空一行 再写具体Description描述，Description 的格式如下所示,eg:
+
+```Description
+1.[type]<空一格>Description1
+2.[type]<空一格>Description2
+3.[type]<空一格>Description3
 ```
+其中 type 是描述类型，可分为下面三种
 
-- 然后按照模板提交
+-   add   (新增加文档或代码)
+-   fix   (修复 bug )
+-   update (更新已有文档或代码)
 
-![git_commit_template](image/git_commit_template.jpg)
+**使用场景描述**
+
+- 比如 新增加了一个文档 描述使用
+
+```Description
+[add] 增加文档描述代码使用和集成
+```
+- 比如 修复了一个bug
+
+```Description
+[fix] 修复了一个bug，对策RTC问题点
+```
+- 比如 更新了代码
+
+```Description
+[update] 更新了版本说明
+```
+- 如果较多的更改，可以一起换行继续写
+```Description
+[add] 增加文档描述代码使用和集成
+[fix] 修复了一个bug，对策RTC问题点
+[update] 更新了版本说明
+```
+### 2.3 commit之note
+
+note 是此次提及的备注事项，这个可有可无，可以做一些修改参考说明，RTC对策ID输入在此
+
+### 2.4 commit
+
+以上2.1和2.2和2.3是针对commit三部分说明，写在一起的话，就如下所示
+``` commit
+[CarSingalManage][MX51] 增加了文档描述代码示例，修改了之前提出的bug
+
+[add] 增加文档描述代码使用和集成
+[fix] 修复了一个bug，对策RTC问题点
+[update] 更新了版本说明
+
+此时更新部分修改参考之前XX工程，同步参考修改之前问题点，RTCID：51203
+```
+这样就可以很清楚知道此次修改影响了哪些 模块，以及修改点，增加点，和更新点
 
 ## 3.参考
 
@@ -113,5 +109,9 @@ git config --global commit.template  /E/github/git_commit/template/git_template
 
 [git commit 时使用 Emoji](https://zhuanlan.zhihu.com/p/29764863)
 
-[廖雪峰Git教程](https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)
+[老鸟都应该注意的git 提交规范](http://www.cnblogs.com/ctaodream/p/6066694.html)
 
+[cz-cli](https://github.com/ctaodream/cz-cli)
+
+[廖雪峰Git教程](https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)
+[Git commit message和工作流规范](http://www.cnblogs.com/cpselvis/p/6501485.html)
