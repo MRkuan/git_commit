@@ -70,7 +70,7 @@ Summary在版本工具提交commit的时候，起到简明扼要的特点，这�
 ```Description
 [add] 增加文档描述代码使用和集成
 ```
-- 比如 修复了一个bug（RTC对策ID输入在此）
+- 比如 修复了一个bug（如果有RTC对策ID，则输入在此）
 
 ```Description
 [fix] 修复了一个bug，对策RTC问题点，RTCID：51203
