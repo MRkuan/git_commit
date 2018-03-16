@@ -8,7 +8,7 @@
 
 ### 2.1 正文概述
 
-commit提交格式如下图所示 先写 **Summary** 再紧接着 **<空一行>** 再写下 **Description** ,再紧接着 **<空一行>** 写下 **Note**
+commit提交格式如下图所示 先写 **Summary** 再紧接着 **<空一行>** 再写下 **Description** ,再紧接着 **<空一行>** 写下 **Note**。
 
 Summary是必选的，Description和 Note是可选的，组成结构如下图所示
 
@@ -58,16 +58,17 @@ scope主要分一下三种
 在写完了Summary概述后，空一格 再写具体Description，每行escription控制在75个字符以内，格式如下所示:
 
 ```Description
-1.[type]<空一格>Description1
-2.[type]<空一格>Description2
-3.[type]<空一格>Description3
+[type]<空一格>Description1
+[type]<空一格>Description2
+[type]<空一格>Description3
 ```
 **type描述**
 其中 type 是描述类型，可分为下面三种
 
--   add   (新增加文档或代码)
--   fix   (修复 bug )
--   update (更新已有文档或代码)
+- add (新增加文档或代码)
+- fix (修复 bug )
+- update (更新已有文档或代码)
+- revert (撤回之前修改)
 
 **使用场景描述**
 
@@ -86,20 +87,26 @@ scope主要分一下三种
 ```Description
 [update] 更新了版本说明
 ```
+- 比如 增加的功能需要撤销的:
+
+```Description
+[revert] 取消XX策略，恢复之前策略
+```
 - 如果较多的更改，可以一起换行继续写:
 
 ```Description
 [add] 增加文档描述代码使用和集成
 [fix] 修复了一个bug，对策RTC问题点
 [update] 更新了版本说明
+[revert] 取消XX策略，回复之前策略
 ```
 ### 2.4 commit之note
 
-note 是此次提及的备注事项，这个可有可无，可以做一些修改参考说明
+note 是此次提及的备注事项，这个可有可无，可以做一些修改参考，和版本验证等说明。
 
 ### 2.5 commit示范
 
-以上是针对commit三部分说明，写在一起的话，就如下所示
+以上是针对commit三部分说明，写在一起的话，就如下所示:
 
 - 完整的commit示范(Summary+Description+Note):
 
@@ -125,8 +132,33 @@ note 是此次提及的备注事项，这个可有可无，可以做一些修改
 ``` commit
 [loation] 修改正式提交版本号，版本号为： V1.2.3
 ```
-这样就可以很清楚知道此次修改影响了哪些 模块，以及修改点，增加点，和更新点
+这样就可以很清楚知道此次修改影响了哪些 模块，以及修改点，增加点，和更新点。
 
+### 2.6 commit补充说明
+这部分补充说明主要针对commit细节的补充
+
+- 每次commit尽量让新添加的文件代码部分编译通过，和验证通过。如果未编译或者未验证文件必须在**Note**强制写入未编译或未验证原因,如果在后来某一版已经验证或编译，需要在后来某一版commit注明并写出之前版本提交commit ID，方便问题追溯跟踪。
+
+示范：
+
+之前某一版commit 未验证:
+
+``` commit
+[CarSingalManage] ACC信号检测时间修改
+
+[update] 增加延迟ACC—ON检测时间
+
+[已编译][未验证] 还未经过实车验证
+```
+后来某一版如果已通过，需要说明:
+
+``` commit
+[Mx51] MX51添加新协议
+
+[add] 添加新的透传协议
+
+已经实车验证ACC信号检测，commit ID:XXXX
+```
 ## 3.参考
 
 [Git 提交的正确姿势：Commit message 编写指南](http://www.oschina.net/news/69705/git-commit-message-and-changelog-guide)
