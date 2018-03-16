@@ -2,15 +2,14 @@
 
 ## 1.概述
 
-版本工具提交规范是用来规范svn或git(gerrit，gitlab等git工具)等版本管理工具提交信息，使commit简洁便于查找，commit 大致分为 Summary(概述) 和 Description（描述）和 Note（备注），正文从以下这三方面进行阐述。
+版本工具提交规范是用来规范svn或git等版本管理工具提交信息,目的使commit简洁便于查找,方便日后追溯。
+commit大致分为Summary(概述)和Description（描述）和Note（备注）三方面，正文从以上这三方面进行阐述。
 
 ## 2.正文
 
 ### 2.1 正文概述
 
-commit提交格式如下图所示 先写 **Summary** 再紧接着 **<空一行>** 再写下 **Description** ,再紧接着 **<空一行>** 写下 **Note**。
-
-Summary是必选的，Description和 Note是可选的，组成结构如下图所示
+commit提交格式如下所示,先写**Summary**再紧接着**<空一行>**再写下**Description**,再紧接着**<空一行>**写下 **Note**。其中Summary是必选的，Description和 Note是可选的。
 
 ``` commit
 Summary
@@ -19,25 +18,21 @@ Description
 
 Note
 ```
-
 ### 2.2 commit之Summary
 
-Summary在版本工具提交commit的时候，起到简明扼要的特点，这里主要叙述了commit比起上个版本功能上的变化，比如 我修改的一个文件，新增加几行代码，是为了满足了什么功能需求，故无需从修改或增加文件本身等一些细节性的出发写 Summary，Summary侧重满足功能需求上,格式分为 ```[scope]<空一格>subject``` ,scope是说明用来说明此次修改的影响范围,subject是具体的描述，Summary尽量控制在50个字符以类。
+Summary在版本工具提交commit的时候，起到简明扼要的特点。这里主要叙述了commit比起上个版本功能上的变化，比如修改的一个文件，新增加几行代码，是为了满足了什么功能需求，故无需从修改或增加文件本身等一些细节性的东西出发写 Summary，Summary侧重满足功能需求上,格式如下所示。scope是说明用来说明此次修改的影响范围,subject是具体的描述，Summary尽量控制在50个字符以内。
 
+```Summary
+[scope]<空一格>subject
+```
 **scope描述**
 
-scope主要分一下三种
+scope主要分以下2种
 - all ：    表示影响面大 ，如修改了整体框架 会对整个程序产生影响
-- loation： 表示影响小，某个小小的功能
 - module：  表示会影响某个模块，比如音频，车身检测模块
 
 **使用场景描述**
 
-- 如果只是一个小小的更改,比如更改版本号:
-
-```Summary
-[loation] 修改了提交版本号
-```
 - 如果影响一个模块的化可以更改为:
 
 ```Summary
@@ -55,7 +50,7 @@ scope主要分一下三种
 ```
 ### 2.3 commit之Description
 
-在写完了Summary概述后，空一格 再写具体Description，每行escription控制在75个字符以内，格式如下所示:
+在写完了Summary概述后，空一格再写具体Description，每行Description控制在75个字符以内，格式如下所示:
 
 ```Description
 [type]<空一格>Description1
@@ -130,7 +125,7 @@ note 是此次提及的备注事项，这个可有可无，可以做一些修改
 - commit示范(Summary):
 
 ``` commit
-[loation] 修改正式提交版本号，版本号为： V1.2.3
+[EEPROM] 修改正式提交版本号，版本号为： V1.2.3
 ```
 这样就可以很清楚知道此次修改影响了哪些 模块，以及修改点，增加点，和更新点。
 
@@ -150,7 +145,7 @@ note 是此次提及的备注事项，这个可有可无，可以做一些修改
 
 [已编译][未验证] 还未经过实车验证
 ```
-后来某一版如果已通过，需要说明:
+后来某一版如果已通过验证，需要说明:
 
 ``` commit
 [Mx51] MX51添加新协议
